@@ -1,6 +1,5 @@
 #tic-toc-toe-Game-used-Alpha-Beta Pruning technique
 
-
 import math
 
 board = [" " for _ in range(9)]
@@ -25,7 +24,6 @@ def is_draw():
     return " " not in board
 
 def minimax_ab(is_max, alpha, beta):
-
     if check_winner("O"):
         return 1
     if check_winner("X"):
@@ -42,12 +40,9 @@ def minimax_ab(is_max, alpha, beta):
                 board[i] = " "
                 best = max(best, score)
                 alpha = max(alpha, best)
-
                 if beta <= alpha:
-                    break   
-
+                    break
         return best
-
     else:
         best = math.inf
         for i in range(9):
@@ -57,33 +52,40 @@ def minimax_ab(is_max, alpha, beta):
                 board[i] = " "
                 best = min(best, score)
                 beta = min(beta, best)
-
                 if beta <= alpha:
-                    break  
-
+                    break
         return best
 
 def best_move():
     best_score = -math.inf
     move = 0
-
     for i in range(9):
         if board[i] == " ":
             board[i] = "O"
             score = minimax_ab(False, -math.inf, math.inf)
             board[i] = " "
-
             if score > best_score:
                 best_score = score
                 move = i
-
     return move
 
 # Game loop
 while True:
     print_board()
+    
+    # User move with validation
+    try:
+        pos = int(input("Enter position (0-8): "))
+        if pos < 0 or pos > 8:
+            print("Invalid input! Choose between 0-8.")
+            continue
+        if board[pos] != " ":
+            print("Invalid Move! Position already taken.")
+            continue
+    except ValueError:
+        print("Invalid input! Please enter a number between 0-8.")
+        continue
 
-    pos = int(input("Enter position (0-8): "))
     board[pos] = "X"
 
     if check_winner("X"):
@@ -107,3 +109,4 @@ while True:
     if is_draw():
         print_board()
         print("Draw!")
+        break

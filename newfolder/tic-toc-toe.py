@@ -1,12 +1,14 @@
-# USED Minimax algorithm TO CREATE TIC-TOC-TOE GAME
-
 import math
 
+
 board = [" " for _ in range(9)]
+
 
 def print_board():
     for i in range(0, 9, 3):
         print(board[i], "|", board[i+1], "|", board[i+2])
+    print()
+
 
 def check_winner(player):
     win_positions = [
@@ -21,6 +23,7 @@ def check_winner(player):
 
 def is_draw():
     return " " not in board
+
 
 def minimax(is_maximizing):
     if check_winner("O"):
@@ -49,6 +52,7 @@ def minimax(is_maximizing):
                 best = min(score, best)
         return best
 
+
 def best_move():
     best_score = -math.inf
     move = 0
@@ -65,24 +69,42 @@ def best_move():
 # Game loop
 while True:
     print_board()
-    pos = int(input("Enter position (0-8): "))
+    
+    # User move with validation
+    try:
+        pos = int(input("Enter position (0-8): "))
+        if pos < 0 or pos > 8:
+            print("Invalid input! Choose between 0-8.")
+            continue
+        if board[pos] != " ":
+            print("Invalid Move! Position already taken.")
+            continue
+    except ValueError:
+        print("Invalid input! Please enter a number between 0-8.")
+        continue
+
     board[pos] = "X"
 
     if check_winner("X"):
+        print_board()
         print("You Win!")
         break
 
     if is_draw():
+        print_board()
         print("Draw!")
         break
 
+    
     comp = best_move()
     board[comp] = "O"
 
     if check_winner("O"):
+        print_board()
         print("Computer Wins!")
         break
 
     if is_draw():
+        print_board()
         print("Draw!")
         break

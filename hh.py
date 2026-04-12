@@ -1,15 +1,15 @@
-#tic-toc-toe-Game-used-Alpha-Beta Pruning technique
-
-
 import math
 
+# Initialize board
 board = [" " for _ in range(9)]
 
+# Print the board
 def print_board():
     for i in range(0, 9, 3):
         print(board[i], "|", board[i+1], "|", board[i+2])
     print()
 
+# Check winner
 def check_winner(player):
     win_positions = [
         [0,1,2],[3,4,5],[6,7,8],
@@ -21,11 +21,12 @@ def check_winner(player):
             return True
     return False
 
+# Check draw
 def is_draw():
     return " " not in board
 
-def minimax_ab(is_max, alpha, beta):
-
+# Minimax algorithm
+def minimax(is_maximizing):
     if check_winner("O"):
         return 1
     if check_winner("X"):
@@ -33,57 +34,56 @@ def minimax_ab(is_max, alpha, beta):
     if is_draw():
         return 0
 
-    if is_max:
+    if is_maximizing:
         best = -math.inf
         for i in range(9):
             if board[i] == " ":
                 board[i] = "O"
-                score = minimax_ab(False, alpha, beta)
+                score = minimax(False)
                 board[i] = " "
-                best = max(best, score)
-                alpha = max(alpha, best)
-
-                if beta <= alpha:
-                    break   
-
+                best = max(score, best)
         return best
-
     else:
         best = math.inf
         for i in range(9):
             if board[i] == " ":
                 board[i] = "X"
-                score = minimax_ab(True, alpha, beta)
+                score = minimax(True)
                 board[i] = " "
-                best = min(best, score)
-                beta = min(beta, best)
-
-                if beta <= alpha:
-                    break  
-
+                best = min(score, best)
         return best
 
+# Best move for computer
 def best_move():
     best_score = -math.inf
     move = 0
-
     for i in range(9):
         if board[i] == " ":
             board[i] = "O"
-            score = minimax_ab(False, -math.inf, math.inf)
+            score = minimax(False)
             board[i] = " "
-
             if score > best_score:
                 best_score = score
                 move = i
-
     return move
 
 # Game loop
 while True:
     print_board()
+    
+    # User move with validation
+    try:
+        pos = int(input("Enter position (0-8): "))
+        if pos < 0 or pos > 8:
+            print("Invalid input! Choose between 0-8.")
+            continue
+        if board[pos] != " ":
+            print("Invalid Move! Position already taken.")
+            continue
+    except ValueError:
+        print("Invalid input! Please enter a number between 0-8.")
+        continue
 
-    pos = int(input("Enter position (0-8): "))
     board[pos] = "X"
 
     if check_winner("X"):
@@ -96,6 +96,7 @@ while True:
         print("Draw!")
         break
 
+    # Computer move
     comp = best_move()
     board[comp] = "O"
 
@@ -107,3 +108,4 @@ while True:
     if is_draw():
         print_board()
         print("Draw!")
+        break

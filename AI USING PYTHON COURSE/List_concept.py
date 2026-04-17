@@ -27,3 +27,4 @@ print(fruits)
 
 for fruit in fruits:         #looping throught list
     print(fruit)
+

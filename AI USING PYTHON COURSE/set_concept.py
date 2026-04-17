@@ -12,7 +12,9 @@ print(my_set)
 A={1,2,3,4}
 B={4,5,6,7}
 
-print(A.union(B))
-print(A.intersection(B))
-print(A.difference(B))
+print(A.union(B))                        # combined both set but skip duplicate numbers
+print(A.intersection(B))                 # only dupliacate can be show
+print(A.difference(B))                   # set A can be check first than give the output
+
+
 

@@ -13,4 +13,6 @@ def func1(text):
 func1("HOME")
 func1("SCHOOL")
 
+
+
     

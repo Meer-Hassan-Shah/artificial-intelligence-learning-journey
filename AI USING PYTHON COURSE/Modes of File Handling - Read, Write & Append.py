@@ -1,4 +1,4 @@
-
+# Writing to Files in Python 
 
 file = open("example.txt", "r")  # Open the file in read mode
 print(file.read())  # This will raise an error because the file is opened in write mode
@@ -8,7 +8,7 @@ file = open("example.txt", "w")  # Open the file in write mode
 file.write("change Hello, World!")  # Write a string to the file
 file.close()  # Close the file
 
-file = open("example.txt", "a")  # Open the file in read mode
+file = open("example.txt", "a")  # Open the file in append mode
 file.write("\nThis will raise an error because the file is opened in read mode")  # This will raise an error because the file is opened in read mode
 file.close()  # Close the file
 

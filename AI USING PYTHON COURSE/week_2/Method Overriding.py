@@ -1,4 +1,5 @@
 
+# Method Overriding in Python
 class Animal:
     def speak(self):
         print("Some sound")

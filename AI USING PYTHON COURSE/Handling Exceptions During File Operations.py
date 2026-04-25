@@ -1,3 +1,4 @@
+# Handling Exceptions During File Operations is crucial to ensure that your program can gracefully handle errors that may occur when working with files, such as trying to read a file that does not exist. In Python, you can use try-except blocks to catch and handle these exceptions.
 
 try:  
     with open("missing.txt", "r") as file:  # Attempt to open the file in read mode
@@ -20,3 +21,5 @@ except FileNotFoundError:  # Handle the case where the file is not found
         fout.write(f"Name: {name}\nAge: {age}")  # Write the name and age to the file
     with open(filename, "r") as fin: # Open the file in read mode to verify its contents
         print(fin.read())  # Read and print the contents of the file to verify it was created successfully
+
+        sssawe443
